@@ -1,0 +1,34 @@
+{
+  "default": "welcome",
+  "root": "app",
+  "auto-nav": true,
+  "auto-hide": true,
+  "routes": [
+    {
+      "title": "Welcome",
+      "hash": "#welcome",
+      "view": "welcome",
+      "hasStyle": true
+    },
+    {
+      "title": "About",
+      "hash": "#about",
+      "view": "about",
+      "html-only": true,
+      "hasStyle": true
+    },
+    {
+      "title": "Simple Binding",
+      "hash": "#simple-binding",
+      "view": "simple-binding",
+      "hasStyle": true
+    },
+    {
+      "title": "404",
+      "hash": "#404",
+      "view": "404",
+      "html-only": true,
+      "hasStyle": true
+    }
+  ]
+}

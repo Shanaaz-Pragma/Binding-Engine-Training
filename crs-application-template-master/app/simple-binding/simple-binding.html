@@ -1,0 +1,11 @@
+<h2>${title}</h2>
+<form id="person">
+    <label for="firstName" inner-text.once="label.firstName" style.color.if="data.firstName === 'Bobby' ? 'var(--cl-primary)'"></label>
+    <input name="firstName" type="text" value.bind="data.firstName" />
+    <label for="lastName" inner-text.once="label.lastName"></label>
+    <input name="lastName" type="text" value.bind="data.lastName" />
+    <label for="age" inner-text.once="label.age"></label>
+    <input name="age" type="text" value.bind="data.age" classlist.if="data.age > 30 ? 'too-old'" />
+    <button id="reset" click.call="reset" inner-text.once="label.reset"></button>
+</form>
+<div>${data.firstName} ${data.lastName} is ${data.age} years old.</div>
