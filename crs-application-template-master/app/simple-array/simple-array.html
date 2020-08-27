@@ -1,0 +1,17 @@
+<button click.call="_addItem">Add Item</button>
+<button click.call="_removeItems">Remove Items</button>
+<button click.call="_editFirst">Edit First</button>
+<div class="listheader">
+    <span>Selected</span>
+    <span>Title</span>
+    <span>Is Done</span>
+</div>
+<ul role="listbox">
+    <template for="item of items">
+        <li classlist.if="item.isDone == true ? 'done'" aria-selected="${item.isSelected}" role="listitem">
+            <input type="checkbox" checked.bind="item.isSelected">
+            <span>${item.title}</span>
+            <input type="checkbox" checked.bind="item.isDone">
+        </li>
+    </template>
+</ul>

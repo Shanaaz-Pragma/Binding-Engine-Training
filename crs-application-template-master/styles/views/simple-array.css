@@ -1,0 +1,32 @@
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 ;
+}
+
+.listheader {
+    margin: 2rem 0 0 0;
+    font-weight: bold;
+}
+
+.listheader,
+ul li {
+    display: grid;
+    grid-template-columns: 10rem auto 10rem;
+    height: 3rem;
+    align-items: center;
+}
+
+ul li {
+    height: 3rem;
+}
+
+.done {
+    opacity: 0.5;
+}
+
+[aria-selected="true"] {
+    border: #266fed solid 1px;
+    background: #266fed;
+    color: #FFFFFF;
+}
