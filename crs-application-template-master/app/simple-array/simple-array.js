@@ -1,91 +1,94 @@
 import {ViewBase} from "./../../node_modules/crs-binding/crs-view-base.js";
 
 /**
- * Simple Array
+ * Simple Array of Items
  */
 export default class SimpleArray extends ViewBase {
-    get html() {
-        return import.meta.url.replace(".js", ".html");
-    }
-
-    async connectedCallback() { 
+    async connectedCallback() {
         await super.connectedCallback();
-        await this.load();
-    }
-
-    async disconnectedCallback() {    
-        await super.disconnectedCallback();
+        this.load();
     }
 
     /**
      * Preload values that are needed to initialise the view
-     * @param {*} setPropertyCallback 
+     * @param {*} setPropertyCallback
      */
     async preLoad(setPropertyCallback) {
         const items = [
             {
-                title: "Item 1", 
-                isDone: false 
+                title: "Item 1",
+                isDone: false
             },
             {
-                title: "Item 2", 
-                isDone: false 
+                title: "Item 2",
+                isDone: false
             }
         ];
 
-        this.setProperty("items", items);
+        setPropertyCallback("items", items);
     }
 
     /**
      * Load UI after connected
      */
-    async load() {
+    load() {
         crsbinding.data.updateUI(this, "items");
-        super.load();
+        //TODO: SA - Check why this throws an error in console
+        //super.load();
     }
 
     /**
-     * Prompt for a title and then add a new item with that title and isDone defaulting to false.
+     *Add item
      */
-    async _addItem() {
-        const proxy = crsbinding.data.array(this, "items");
+    addItem() {
         const title = prompt("Please enter a unique title", "");
+        const valid = this.validate(title);
 
-        if(title == null || title === "" || proxy.filter(x => x.title === title).length > 0) {
-            await this._addItem();
-        } 
-        else {
+        if(valid === true) {
+            const proxy = crsbinding.data.array(this, "items");
             const newItem = {
                 title: title,
                 isDone: false
-            }
+            };
 
             proxy.push(newItem);
+        } else {
+            this.addItem();
         }
     }
 
     /**
-     * Get all the items from the array where isSelected is true and remove them.
+     * Remove selected items
      */
-    async _removeItems() {
+    removeItems() {
         let proxy = crsbinding.data.array(this, "items");
+        proxy = proxy.filter(x => x.isSelected != true);
 
-        //TODO: SA - Check why only 1 is being removed
-        for (const item of proxy) {
-            const index = proxy.indexOf(item);
-            if(item.isSelected === true) {
-                //proxy.splice(index, 1);
-                proxy = proxy.filter(x => x.title === item.title);
-            }
-        }
+        this.setProperty("items", proxy);
     }
 
     /**
-     * Set the title of the first item in the array to "Hello World"
+     * Update first item title to "Hello World"
      */
-    async _editFirst() {
+    editFirst() {
         if(this.getProperty("items")[0].length === 0) return;
 
         crsbinding.data.setProperty(this.getProperty("items")[0], "title", "Hello World");
+    }
+
+    /**
+     * Validate the received value
+     * @param value - {string}
+     * @return {boolean}
+     */
+    validate(value) {
+        if(value != null && value != "" && value.length > 0) {
+            const proxy = crsbinding.data.array(this, "items");
+            if(proxy.filter(x => x.title == value).length === 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

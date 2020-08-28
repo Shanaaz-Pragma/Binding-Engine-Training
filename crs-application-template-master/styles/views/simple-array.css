@@ -8,17 +8,28 @@ ul {
     margin: 2rem 0 0 0;
     font-weight: bold;
 }
+/*.listheader span,
+ul li span {
+    padding: 0.5rem;
+}*/
+
+ul li {
+    padding: 0.5rem;
+}
 
 .listheader,
 ul li {
     display: grid;
-    grid-template-columns: 10rem auto 10rem;
-    height: 3rem;
+    grid-template-columns: 5rem auto 5rem;
+    column-gap: 0.5rem;
+    min-height: 3rem;
     align-items: center;
 }
 
-ul li {
-    height: 3rem;
+ul li input{
+    margin-top: 0.5rem;
+    align-self: start;
+    justify-self: center;
 }
 
 .done {
